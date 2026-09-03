@@ -1,0 +1,424 @@
+/* ===================================================================
+   Chúc Mừng Sinh Nhật — style dùng chung + trang QR + trang chính
+   Bảng màu: thiên hà đa sắc (tím · cyan · cam · vàng · magenta · mint)
+   =================================================================== */
+
+:root {
+  --c-violet: #7b2ff7;
+  --c-cyan:   #00d4ff;
+  --c-orange: #ff7a1a;
+  --c-yellow: #ffd23f;
+  --c-magenta:#ff2e97;
+  --c-mint:   #35e0a1;
+
+  --bg-0: #05010f;
+  --bg-1: #0b0430;
+  --bg-2: #1a0533;
+
+  --ink:      #f6f2ff;
+  --ink-soft: #b9aee0;
+
+  --ring: 0 0 0 1px rgba(255,255,255,.08);
+  --font-sans: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  /* Font "chữ ký": chỉ dùng cho chữ Latin không dấu — chữ có dấu tự fallback về sans */
+  --font-script: "Be Vietnam Pro", system-ui, "Segoe UI", sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: var(--bg-0);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overscroll-behavior: none;
+}
+
+body {
+  min-height: 100%;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.stars {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Nền thiên hà nhiều lớp gradient */
+.nebula {
+  position: fixed;
+  inset: -20%;
+  z-index: -1;
+  background:
+    radial-gradient(38% 44% at 18% 22%, rgba(123,47,247,.55), transparent 70%),
+    radial-gradient(34% 40% at 82% 18%, rgba(0,212,255,.40), transparent 70%),
+    radial-gradient(42% 46% at 78% 82%, rgba(255,46,151,.42), transparent 70%),
+    radial-gradient(40% 46% at 20% 84%, rgba(255,122,26,.34), transparent 72%),
+    radial-gradient(60% 60% at 50% 50%, rgba(53,224,161,.14), transparent 75%),
+    linear-gradient(160deg, var(--bg-1), var(--bg-0) 60%, var(--bg-2));
+  animation: nebulaDrift 26s ease-in-out infinite alternate;
+}
+@keyframes nebulaDrift {
+  0%   { transform: translate3d(-2%, -1%, 0) scale(1.02) rotate(-1deg); }
+  100% { transform: translate3d(2%, 2%, 0) scale(1.08) rotate(1.5deg); }
+}
+
+.btn {
+  font-family: inherit;
+  font-weight: 600;
+  color: var(--ink);
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 999px;
+  padding: .7rem 1.2rem;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: transform .15s ease, background .2s ease, box-shadow .2s ease;
+}
+.btn:hover { background: rgba(255,255,255,.13); transform: translateY(-1px); }
+.btn:active { transform: translateY(0) scale(.98); }
+
+/* =========================  TRANG 1 : QR TRÁI TIM  ========================= */
+
+.qr-page {
+  position: relative;
+  z-index: 1;
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: 24px 16px 40px;
+}
+
+.qr-card {
+  width: min(560px, 92vw);
+  text-align: center;
+  animation: rise .8s cubic-bezier(.2,.7,.2,1) both;
+}
+@keyframes rise { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+
+.qr-kicker {
+  letter-spacing: .32em;
+  text-transform: uppercase;
+  font-size: .72rem;
+  color: var(--ink-soft);
+  margin: 0 0 .5rem;
+}
+.qr-title {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  letter-spacing: .01em;
+  font-size: clamp(2.1rem, 7vw, 3.2rem);
+  line-height: 1.08;
+  margin: 0 0 .35rem;
+  background: linear-gradient(92deg, var(--c-cyan), var(--c-violet) 40%, var(--c-magenta) 72%, var(--c-orange));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 4px 18px rgba(255,46,151,.35));
+}
+.qr-sub { margin: 0 0 1.6rem; color: var(--ink-soft); font-size: 1rem; }
+
+/* Khung trái tim bao quanh QR */
+.heart-wrap {
+  position: relative;
+  width: min(420px, 82vw);
+  aspect-ratio: 1 / 1;
+  margin: 0 auto 1.4rem;
+  display: grid;
+  place-items: center;
+}
+.heart-glow {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(closest-side, rgba(255,46,151,.55), transparent 70%),
+    radial-gradient(closest-side at 30% 40%, rgba(123,47,247,.5), transparent 70%),
+    radial-gradient(closest-side at 72% 46%, rgba(0,212,255,.42), transparent 70%);
+  filter: blur(6px);
+  animation: pulse 3.4s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100% { transform: scale(.96); opacity: .8; } 50% { transform: scale(1.06); opacity: 1; } }
+
+.heart-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 10px 40px rgba(255,46,151,.4));
+  animation: beat 1.8s ease-in-out infinite;
+}
+@keyframes beat {
+  0%, 100% { transform: scale(1); }
+  8%  { transform: scale(1.045); }
+  16% { transform: scale(.99); }
+  24% { transform: scale(1.02); }
+  32% { transform: scale(1); }
+}
+
+/* Thẻ trắng chứa QR (giữ QR vuông để luôn quét được) */
+.qr-holder {
+  position: relative;
+  width: 58%;
+  aspect-ratio: 1 / 1;
+  background: #fff;
+  border-radius: 18px;
+  padding: 12px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.5), inset 0 0 0 1px rgba(0,0,0,.05);
+  z-index: 2;
+}
+.qr-holder canvas,
+.qr-holder img { width: 100%; height: 100%; display: block; border-radius: 8px; object-fit: contain; }
+
+/* 4 góc "khung quét" */
+.scan-corner {
+  position: absolute;
+  width: 26px; height: 26px;
+  border: 3px solid #fff;
+  z-index: 3;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,.35));
+}
+.scan-corner.tl { top: 16%;  left: 16%;  border-right: 0; border-bottom: 0; border-radius: 8px 0 0 0; }
+.scan-corner.tr { top: 16%;  right: 16%; border-left: 0;  border-bottom: 0; border-radius: 0 8px 0 0; }
+.scan-corner.bl { bottom: 20%; left: 16%; border-right: 0; border-top: 0;   border-radius: 0 0 0 8px; }
+.scan-corner.br { bottom: 20%; right: 16%; border-left: 0; border-top: 0;    border-radius: 0 0 8px 0; }
+
+[hidden] { display: none !important; }
+
+/* mini hearts bay quanh trang QR */
+.mini-heart {
+  position: fixed;
+  font-size: 20px;
+  z-index: 1;
+  pointer-events: none;
+  animation: floatUp linear infinite;
+  filter: drop-shadow(0 0 8px currentColor);
+}
+@keyframes floatUp {
+  from { transform: translateY(0) rotate(0); opacity: 0; }
+  10%  { opacity: .9; }
+  90%  { opacity: .9; }
+  to   { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
+}
+
+/* =========================  TRANG 2 : GIAO DIỆN CHÍNH  ========================= */
+
+.celebrate-body { overflow: hidden; height: 100%; }
+html:has(.celebrate-body) { overflow: hidden; }
+
+#viewport {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  touch-action: none;              /* để tự xử lý pinch / drag */
+  cursor: grab;
+}
+#viewport.dragging { cursor: grabbing; }
+
+#stage {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 1400px;
+  height: 900px;
+  transform-origin: center center;
+  will-change: transform;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Lớp trái tim bay */
+#hearts-layer {
+  position: absolute;
+  inset: -10%;
+  pointer-events: none;
+  transition: opacity .6s ease;
+}
+.fly-heart {
+  position: absolute;
+  bottom: -8%;
+  will-change: transform, opacity;
+  animation: heartRise linear infinite;
+}
+.fly-heart svg { display: block; filter: drop-shadow(0 0 10px currentColor); }
+@keyframes heartRise {
+  0%   { transform: translateY(0) translateX(0) rotate(0) scale(var(--s,1)); opacity: 0; }
+  8%   { opacity: var(--o,.85); }
+  50%  { transform: translateY(-55vh) translateX(var(--dx,20px)) rotate(180deg) scale(var(--s,1)); }
+  92%  { opacity: var(--o,.85); }
+  100% { transform: translateY(-115vh) translateX(calc(var(--dx,20px) * -1)) rotate(360deg) scale(var(--s,1)); opacity: 0; }
+}
+
+/* Lời chúc trôi nổi */
+.msg {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  white-space: nowrap;
+  font-weight: 700;
+  letter-spacing: .01em;
+  will-change: transform, opacity;
+  pointer-events: none;
+  text-shadow: 0 2px 10px rgba(0,0,0,.6), 0 0 14px currentColor;
+}
+
+/* Ảnh nhỏ trôi xuống / xoay quanh hình cầu */
+.float-img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 16px;
+  overflow: hidden;
+  will-change: transform, opacity;
+  pointer-events: none;
+  box-shadow: 0 6px 18px rgba(0,0,0,.45), 0 0 0 3px rgba(255,255,255,.16);
+  background: rgba(255,255,255,.06);
+}
+.float-img img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+}
+
+/* Ảnh trung tâm (trục hình cầu) — dựng ở kích thước lớn rồi thu nhỏ để luôn nét */
+#photo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 340px;
+  height: 340px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  overflow: hidden;
+  will-change: transform, opacity;
+  box-shadow:
+    0 0 0 6px rgba(255,255,255,.06),
+    0 0 40px 6px rgba(123,47,247,.5),
+    0 0 90px 20px rgba(255,46,151,.35);
+  z-index: 500;
+}
+#photo::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  padding: 3px;
+  background: conic-gradient(from 0deg, var(--c-cyan), var(--c-violet), var(--c-magenta), var(--c-orange), var(--c-yellow), var(--c-mint), var(--c-cyan));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  will-change: transform;
+  animation: spin 8s linear infinite;
+}
+.celebrate-body.mode-sphere #photo::after { animation-play-state: paused; }
+@keyframes spin { to { transform: rotate(360deg); } }
+#photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* ---- HUD (không bị zoom) ---- */
+.hud { position: fixed; z-index: 20; }
+
+.zoom-controls {
+  right: max(16px, env(safe-area-inset-right));
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.zoom-controls button {
+  width: 46px; height: 46px;
+  display: grid; place-items: center;
+  font-size: 1.3rem;
+  line-height: 1;
+  border-radius: 14px;
+  padding: 0;
+  color: var(--ink);
+  background: rgba(38,20,60,.6);
+  border: 1px solid rgba(255,255,255,.18);
+  box-shadow: 0 8px 24px rgba(0,0,0,.3);
+  cursor: pointer;
+  transition: transform .12s ease, background .2s ease;
+}
+.zoom-controls button:hover { background: rgba(255,255,255,.16); transform: translateY(-1px); }
+.zoom-controls button:active { transform: scale(.94); }
+
+.title-badge {
+  left: 50%;
+  top: max(16px, env(safe-area-inset-top));
+  transform: translateX(-50%);
+  text-align: center;
+  pointer-events: none;
+  width: max-content;
+  max-width: 90vw;
+}
+.title-badge h1 {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-weight: 800;
+  letter-spacing: .01em;
+  font-size: clamp(1.5rem, 5vw, 2.4rem);
+  background: linear-gradient(92deg, var(--c-cyan), var(--c-yellow) 45%, var(--c-magenta) 80%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  filter: drop-shadow(0 3px 16px rgba(0,0,0,.5));
+}
+.title-badge p { margin: 2px 0 0; color: var(--ink-soft); font-size: .82rem; letter-spacing: .12em; text-transform: uppercase; }
+
+/* Nút trái tim có mũi tên chỉ vào */
+.reveal-btn {
+  left: 50%;
+  bottom: max(22px, env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: .7rem 1.25rem .7rem .9rem;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(92deg, rgba(123,47,247,.95), rgba(255,46,151,.95));
+  border: 1px solid rgba(255,255,255,.28);
+  box-shadow: 0 14px 40px rgba(255,46,151,.45), inset 0 0 0 1px rgba(255,255,255,.12);
+  animation: revealPulse 2.6s ease-in-out infinite;
+}
+@keyframes revealPulse {
+  0%,100% { box-shadow: 0 14px 40px rgba(255,46,151,.35), inset 0 0 0 1px rgba(255,255,255,.12); }
+  50%     { box-shadow: 0 14px 54px rgba(0,212,255,.5), inset 0 0 0 1px rgba(255,255,255,.2); }
+}
+.reveal-btn .icon { width: 34px; height: 34px; flex: none; }
+.reveal-btn .icon .arrow { animation: pokeArrow 1.6s ease-in-out infinite; }
+@keyframes pokeArrow {
+  0%,100% { transform: translate(0,0); }
+  50%     { transform: translate(3px,-3px); }
+}
+.celebrate-body.mode-sphere .reveal-btn { animation: none; background: linear-gradient(92deg, rgba(0,212,255,.85), rgba(53,224,161,.85)); }
+.celebrate-body.mode-sphere .reveal-btn .icon .arrow { animation: none; }
+
+.hint {
+  left: 50%;
+  bottom: calc(max(22px, env(safe-area-inset-bottom)) + 68px);
+  transform: translateX(-50%);
+  color: var(--ink-soft);
+  font-size: .8rem;
+  background: rgba(0,0,0,.3);
+  padding: .35rem .8rem;
+  border-radius: 999px;
+  pointer-events: none;
+  transition: opacity .5s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nebula, .heart-glow, .heart-svg, .reveal-btn, .fly-heart, #photo::after { animation-duration: .001s; animation-iteration-count: 1; }
+}

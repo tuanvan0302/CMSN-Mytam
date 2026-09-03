@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+<title>Chúc Mừng Sinh Nhật MyTamm</title>
+<meta name="description" content="Lời chúc sinh nhật trôi nổi trong không trung." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body class="celebrate-body">
+  <div class="nebula"></div>
+  <canvas id="stars" class="stars"></canvas>
+
+  <div id="viewport">
+    <div id="hearts-layer"></div>
+    <div id="stage">
+      <div id="photo"></div>
+    </div>
+  </div>
+
+  <div class="hud title-badge">
+    <h1 id="main-title">Chúc Mừng Sinh Nhật Mỹ Tâm</h1>
+    <p id="main-sub">Gửi tới người đặc biệt nhất hôm nay</p>
+  </div>
+
+  <div class="hud zoom-controls">
+    <button id="zoom-in"  type="button" title="Phóng to"  aria-label="Phóng to">＋</button>
+    <button id="zoom-out" type="button" title="Thu nhỏ"   aria-label="Thu nhỏ">－</button>
+    <button id="zoom-reset" type="button" title="Về mặc định" aria-label="Về mặc định">⟳</button>
+  </div>
+
+  <div class="hud hint" id="hint">Cuộn / chụm để phóng · kéo để di chuyển</div>
+
+  <button class="hud reveal-btn" id="reveal" type="button">
+    <span class="icon" aria-hidden="true">
+      <svg viewBox="0 0 40 40" width="100%" height="100%">
+        <path d="M20 34C9 26 4 20 4 13.5 4 8.8 7.8 5 12.4 5 15.6 5 18.4 6.8 20 9.6 21.6 6.8 24.4 5 27.6 5 32.2 5 36 8.8 36 13.5 36 20 31 26 20 34Z"
+              fill="rgba(255,255,255,.18)" stroke="#fff" stroke-width="2.4" stroke-linejoin="round"/>
+        <g class="arrow" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M2 38 L15 25"/>
+          <path d="M15 25 L15 32 M15 25 L8 25"/>
+        </g>
+      </svg>
+    </span>
+    <span class="label">Gom thành hình cầu</span>
+  </button>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/stars.js"></script>
+  <script src="assets/js/page2.js"></script>
+</body>
+</html>

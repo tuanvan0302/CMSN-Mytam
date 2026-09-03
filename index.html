@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Chúc Mừng Sinh Nhật Mỹ Tâm</title>
+<meta name="description" content="Quét mã QR hình trái tim để mở lời chúc sinh nhật." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <div class="nebula"></div>
+  <canvas id="stars" class="stars"></canvas>
+
+  <main class="qr-page">
+    <div class="qr-card">
+      <p class="qr-kicker">Món quà nhỏ dành cho em</p>
+      <h1 class="qr-title" id="qr-title">Chúc Mừng Sinh Nhật Mỹ Tâm</h1>
+      <p class="qr-sub" id="qr-sub">Quét trái tim để mở món quà nhé</p>
+
+      <div class="heart-wrap">
+        <div class="heart-glow"></div>
+        <svg class="heart-svg" viewBox="0 0 100 100" aria-hidden="true">
+          <defs>
+            <linearGradient id="hg" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#00d4ff" />
+              <stop offset=".4" stop-color="#7b2ff7" />
+              <stop offset=".72" stop-color="#ff2e97" />
+              <stop offset="1" stop-color="#ff7a1a" />
+            </linearGradient>
+          </defs>
+          <path d="M50 88 C 12 60, 4 36, 20 22 C 33 10, 46 16, 50 28 C 54 16, 67 10, 80 22 C 96 36, 88 60, 50 88 Z"
+                fill="none" stroke="url(#hg)" stroke-width="3.5" stroke-linejoin="round" />
+        </svg>
+
+        <div class="qr-holder">
+          <canvas id="qr-canvas" width="512" height="512" aria-label="Mã QR mở trang chúc mừng sinh nhật" role="img"></canvas>
+          <span class="scan-corner tl"></span>
+          <span class="scan-corner tr"></span>
+          <span class="scan-corner bl"></span>
+          <span class="scan-corner br"></span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/stars.js"></script>
+  <script src="assets/js/qrcode.min.js"></script>
+  <script src="assets/js/page1.js"></script>
+</body>
+</html>
